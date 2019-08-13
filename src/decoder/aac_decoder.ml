@@ -84,7 +84,6 @@ struct
 let create_decoder input =
   let resampler = Rutils.create_audio () in
   let dec = Faad.create () in
-  (* Utils.pagesize bytes seems usually enough to initiate the decoder.. *)
   let (aacbuf,len) = input.Decoder.read Utils.pagesize in
   let offset, sample_freq, chans =
     Faad.init dec (Bytes.unsafe_of_string aacbuf) 0 len
