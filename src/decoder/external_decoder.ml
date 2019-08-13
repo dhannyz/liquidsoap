@@ -32,14 +32,14 @@ let log = Log.make ["decoder";"external"]
   * the available output. *)
 let external_input process input =
   let on_stdin pusher =
-    let s,read = input.Decoder.read 1024 in
+    let s,read = input.Decoder.read Utils.pagesize in
     if read = 0 then `Stop else begin
       Process_handler.write (Bytes.of_string s) pusher;
       `Continue
     end
   in
   let on_stderr puller =
-    log#debug "stderr: %s" (Bytes.unsafe_to_string (Process_handler.read 1024 puller));
+    log#debug "stderr: %s" (Bytes.unsafe_to_string (Process_handler.read Utils.pagesize puller));
     `Continue
   in
   let log = log#important "%s" in
@@ -165,7 +165,7 @@ let log = Log.make ["decoder";"external";"oblivious"]
 
 let external_input_oblivious process filename prebuf = 
   let on_stderr puller =
-    log#debug "stderr: %s" (Bytes.unsafe_to_string (Process_handler.read 1024 puller));
+    log#debug "stderr: %s" (Bytes.unsafe_to_string (Process_handler.read Utils.pagesize puller));
     `Continue
   in
   let command = process filename in
