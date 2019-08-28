@@ -46,7 +46,7 @@ let conf_duration =
 let conf_audio =
   Conf.void ~p:(conf#plug "audio") "Audio (PCM) format"
 let conf_audio_samplerate =
-  Conf.int ~p:(conf_audio#plug "samplerate") ~d:44100 "Samplerate"
+  Conf.int ~p:(conf_audio#plug "samplerate") ~d:48000 "Samplerate"
 let conf_audio_channels =
   Conf.int ~p:(conf_audio#plug "channels") ~d:2 "Default number of channels"
 let conf_audio_size =
